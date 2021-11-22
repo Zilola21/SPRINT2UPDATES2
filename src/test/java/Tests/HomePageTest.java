@@ -5,7 +5,7 @@ import Pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class HomePageTest extends TestBase {
+public class HomePageTest extends Tests.TestBase {
 
 
     @Test(groups = {"smokeTest"})

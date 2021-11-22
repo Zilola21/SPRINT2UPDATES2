@@ -4,7 +4,7 @@ package Tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class HomePageTest2 extends TestBase {
+public class HomePageTest2 extends Tests.TestBase {
     @Test(groups = {"smokeTest"})
     public void NavigateToNewAutoRatesOfRefinance() {
 

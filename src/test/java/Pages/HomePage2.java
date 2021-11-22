@@ -27,6 +27,5 @@ public class HomePage2{
     }
     public void NavigateToUsedAutoRatesOfRefinance(){
         refinance.click();
-        usedAutoRefinance.click();
     }
 }

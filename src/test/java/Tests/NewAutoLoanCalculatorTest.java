@@ -1,0 +1,93 @@
+package tests;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import pages.AutoLoanApplicationPage;
+import pages.NewAutoLoanCalculatorPage;
+
+public class NewAutoLoanCalculatorTest extends Tests.TestBase {
+
+
+
+
+@Test(groups={"regressionTest"})
+     public void fillOutAllTheInformationInCalculator() throws InterruptedException {
+
+     AutoLoanApplicationPage autoLoanApplicationPage=new AutoLoanApplicationPage();
+     autoLoanApplicationPage.NavigateToAutoLoanPage();
+     NewAutoLoanCalculatorPage newAutoLoanCalculatorPage=new NewAutoLoanCalculatorPage();
+     newAutoLoanCalculatorPage.purchasePrice.clear();
+     newAutoLoanCalculatorPage.purchasePrice.sendKeys("5000");
+     newAutoLoanCalculatorPage.downPayment.click();
+     newAutoLoanCalculatorPage.downPayment.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
+     newAutoLoanCalculatorPage.downPayment.sendKeys("1000");
+     newAutoLoanCalculatorPage.tradeInValue.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
+     newAutoLoanCalculatorPage.tradeInValue.sendKeys("500");
+     newAutoLoanCalculatorPage.amountOwedOnTrade.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
+     newAutoLoanCalculatorPage.amountOwedOnTrade.sendKeys("400");
+     Thread.sleep(3000);
+     newAutoLoanCalculatorPage.calculateButton.click();
+     String expectedPayments="111";
+     String actualPayments=newAutoLoanCalculatorPage.monthlyCost.getText();
+
+     Assert.assertEquals(actualPayments,expectedPayments);
+
+}
+@Test(groups={"regressionTest"})
+public void checkDefaultValuesInCalculator() {
+
+
+     AutoLoanApplicationPage autoLoanApplicationPage=new AutoLoanApplicationPage();
+     autoLoanApplicationPage.NavigateToAutoLoanPage();
+     driver.findElement(By.xpath("//button[@data-pen-clickid='PF-BTN-CLK-GLOBAL-COOKIE-REJECT']")).click();
+     NewAutoLoanCalculatorPage newAutoLoanCalculatorPage=new NewAutoLoanCalculatorPage();
+     newAutoLoanCalculatorPage.calculateButton.click();
+     String expectedPayments="571";
+     String actualPayments=newAutoLoanCalculatorPage.monthlyCost.getText();
+
+     Assert.assertEquals(actualPayments,expectedPayments);
+
+
+}
+@Test(groups={"regressionTest"})
+     public void checkMinBoundaryValuesForPurchasePriseInCalculator() throws InterruptedException {
+
+     AutoLoanApplicationPage autoLoanApplicationPage=new AutoLoanApplicationPage();
+     autoLoanApplicationPage.NavigateToAutoLoanPage();
+     NewAutoLoanCalculatorPage newAutoLoanCalculatorPage=new NewAutoLoanCalculatorPage();
+     newAutoLoanCalculatorPage.purchasePrice.clear();
+     newAutoLoanCalculatorPage.purchasePrice.sendKeys("500");
+     driver.findElement(By.xpath("//button[@data-pen-clickid='PF-BTN-CLK-GLOBAL-COOKIE-REJECT']")).click();
+     Thread.sleep(2000);
+     newAutoLoanCalculatorPage.calculateButton.click();
+     String expectedPayments="14";
+     String actualPayments=newAutoLoanCalculatorPage.monthlyCost.getText();
+
+     Assert.assertEquals(actualPayments,expectedPayments);
+
+}
+     @Test(groups={"regressionTest"})
+     public void checkMaxBoundaryValuesForPurchasePriseInCalculator() throws InterruptedException {
+
+          AutoLoanApplicationPage autoLoanApplicationPage=new AutoLoanApplicationPage();
+          autoLoanApplicationPage.NavigateToAutoLoanPage();
+          NewAutoLoanCalculatorPage newAutoLoanCalculatorPage=new NewAutoLoanCalculatorPage();
+          newAutoLoanCalculatorPage.purchasePrice.clear();
+          newAutoLoanCalculatorPage.purchasePrice.sendKeys("999999999");
+          driver.findElement(By.xpath("//button[@data-pen-clickid='PF-BTN-CLK-GLOBAL-COOKIE-REJECT']")).click();
+          Thread.sleep(2000);
+          newAutoLoanCalculatorPage.calculateButton.click();
+          String expectedPayments="28,550,993";
+          String actualPayments=newAutoLoanCalculatorPage.monthlyCost.getText();
+
+          Assert.assertEquals(actualPayments,expectedPayments);
+
+     }
+
+}
+
+
+
+
