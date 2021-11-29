@@ -1,9 +1,9 @@
-package Tests;
+package tests;
 
 
-import Pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.HomePage;
 
 public class HomePageTest extends Tests.TestBase {
 
@@ -14,5 +14,6 @@ public class HomePageTest extends Tests.TestBase {
         HomePage homePage = new HomePage();
         Assert.assertEquals(driver.getTitle(), "Auto Loan Rates & Calculators | New, Used, & Refinancing | www.penfed.org");
     }
+
 }
 
